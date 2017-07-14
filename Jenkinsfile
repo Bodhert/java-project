@@ -86,7 +86,7 @@ pipeline
         {
             agent 
             {
-                label: 'apache'
+                label 'apache'
             }
 
             steps
