@@ -2,6 +2,11 @@ pipeline
 {
     agent none
 
+    environment
+    {
+        MAJOR_VERSION = 1
+    }
+
     stages
     {
 
@@ -51,7 +56,7 @@ pipeline
             steps
             {
                 sh "if ![ -d '/var/www/html/rectangles/all/${env.BRANCH_NAME}' ]; then mkdir /var/www/html/rectangles/all/${env.BRANCH_NAME}; fi"
-                sh "cp dist/rectangle_${env.BUILD_NUMBER}.jar /var/www/html/rectangles/all/${env.BRANCH_NAME}/"
+                sh "cp dist/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar /var/www/html/rectangles/all/${env.BRANCH_NAME}/"
             }
         }
 
@@ -64,8 +69,8 @@ pipeline
 
             steps
             {
-                sh "wget http://andresfb31b.mylabserver.com/rectangles/all/${env.BRANCH_NAME}/rectangle_${env.BUILD_NUMBER}.jar"
-                sh "java -jar rectangle_${env.BUILD_NUMBER}.jar 3 4"
+                sh "wget http://andresfb31b.mylabserver.com/rectangles/all/${env.BRANCH_NAME}/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar"
+                sh "java -jar rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar 3 4"
             }
         }
 
@@ -78,8 +83,8 @@ pipeline
 
             steps
             {
-                sh "wget http://andresfb31b.mylabserver.com/rectangles/all/${env.BRANCH_NAME}/rectangle_${env.BUILD_NUMBER}.jar"
-                sh "java -jar rectangle_${env.BUILD_NUMBER}.jar 3 4"
+                sh "wget http://andresfb31b.mylabserver.com/rectangles/all/${env.BRANCH_NAME}/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar"
+                sh "java -jar rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar 3 4"
             }
         }
 
@@ -97,7 +102,7 @@ pipeline
 
             steps
             {
-                sh "cp /var/www/html/rectangles/all/${env.BRANCH_NAME}/rectangle_${env.BUILD_NUMBER}.jar /var/www/html/rectangles/green/rectangle_${env.BUILD_NUMBER}.jar"                
+                sh "cp /var/www/html/rectangles/all/${env.BRANCH_NAME}/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar /var/www/html/rectangles/green/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar"                
             }
         }
 
@@ -126,6 +131,9 @@ pipeline
                 sh "git merge development"
                 echo "Pushing to Origin Master"
                 sh "git push origin master"
+                echo "Tagging the Release"
+                sh "git tag rectangle-${env.MAJOR_VERSION}.${env.BUILD_NUMBER}"
+                sh "git push origin rectangle-${env.MAJOR_VERSION}.${env.BUILD_NUMBER}"
             }
 
         }
