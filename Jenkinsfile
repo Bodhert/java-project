@@ -1,9 +1,6 @@
 pipeline
 {
-    agent
-    {
-        label 'apache'
-    }
+    agent none
 
     environment
     {
@@ -76,7 +73,7 @@ pipeline
                 sh "java -jar rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar 3 4"
             }
         }
-        
+        /*
         stage("Test on Debian")  // dont understand why 
         {
             agent
@@ -90,7 +87,7 @@ pipeline
                 sh "java -jar rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar 3 4"
             }
         }
-        
+        */
 
         stage('Promote to Green')
         {
