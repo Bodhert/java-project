@@ -64,7 +64,7 @@ pipeline
         {
             agent
             {
-                label 'CentOS'
+                label 'apache'
             }
 
             steps
