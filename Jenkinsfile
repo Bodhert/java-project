@@ -23,6 +23,25 @@ pipeline
             }
         }
 
+        stage('Git Information')
+        {
+            agent
+            {
+                label 'apache'
+            }
+
+            steps
+            {
+                echo "My Branch name: ${env.BRANCH_NAME}"
+
+                script
+                {
+                    def myLib =  new Bodhert.git.gitStuff
+                    echo "My Commit: ${myLib.gitCommit("${env.WORKSPACE}/.git")}"
+                }
+            }
+        }
+
         stage('Unit Tests')
         {
             agent
