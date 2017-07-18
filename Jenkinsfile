@@ -10,6 +10,19 @@ pipeline
     stages
     {
 
+        stage('Say Hello')
+        {
+            agent
+            {
+                label 'apache'
+            }
+
+            steps
+            {
+                sayHello 'Que estudiante mas berraco'
+            }
+        }
+
         stage('Unit Tests')
         {
             agent
