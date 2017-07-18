@@ -36,7 +36,7 @@ pipeline
 
                 script
                 {
-                    def myLib =  new Bodhert.git.gitStuff();
+                    def myLib =  new bodhert.git.gitStuff();
                     echo "My Commit: ${myLib.gitCommit("${env.WORKSPACE}/.git")}"
                 }
             }
